@@ -85,7 +85,7 @@ To invoke the "ncomp", "mcomp", "sconc_btn", "crch_ssm" and "ssm_data" variables
 
 6.) Example
 
-The example "pht3d_fsp_example.ipynb" is provided in the subfolder "./example" to showcase the application of PHT3D-FSP in a FloPy script. Also, compare "pht3d_fsp_example.ipynb" to see how the RCH and SSM stress period data was defined. The example requires the provided PHREEQC-2 database, i.e., "pht3d_datab_example.dat", as well as the PHT3D-FSP species spreadsheet, i.e., "pht3d_species_example.xlsx".
+The example "pht3d_fsp_example.ipynb" is provided in the subfolder "./example" to showcase the application of PHT3D-FSP in a FloPy script. Also, compare "pht3d_fsp_example.ipynb" to see how the RCH and SSM stress period data was defined. The example requires the provided PHREEQC-2 database, i.e., "pht3d_datab.dat", as well as the PHT3D-FSP species spreadsheet, i.e., "pht3d_species_example.xlsx".
 
 7.) Funding
 
