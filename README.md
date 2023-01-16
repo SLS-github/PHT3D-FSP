@@ -83,15 +83,19 @@ To invoke the "ncomp", "mcomp", "sconc_btn", "crch_ssm" and "ssm_data" variables
 
 	SSM --> exec(f'ssm = flopy.mt3d.Mt3dSsm([ADD OTHER PACKAGE VARIABLES HERE], stress_period_data=ssm_data, {pht3d_fsp.create.crch_ssm})')
 
-6.) Funding
+6.) Example
+
+The example "pht3d_fsp_example.ipynb" is provided in the subfolder "./example" to showcase the application of PHT3D-FSP in a FloPy script. Also, compare "pht3d_fsp_example.ipynb" to see how the RCH and SSM stress period data was defined. The example requires the provided PHREEQC-2 database, i.e., "pht3d_datab_example.dat", as well as the PHT3D-FSP species spreadsheet, i.e., "pht3d_species_example.xlsx".
+
+7.) Funding
 
 This work was realized in the Deutsche Forschungsgemeinschaft (DFG) project Reactive Transport (GR 4514/3-1) within the research unit FOR 5094: The dynamic deep subsurface of high-energy beaches (DynaDeep).
 
-7.) License
+8.) License
 
 This work is published under the GNU GENERAL PUBLIC LICENSE Version 3.
 
-8.) Final remark
+9.) Final remark
 
 This is a preliminary file version. Contact the authors in case you experience errors.
 
