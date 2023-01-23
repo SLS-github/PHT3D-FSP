@@ -2,6 +2,8 @@
 
 Authors: Stephan L. Seibert (stephan.seibert@uol.de) and Janek Greskowiak (janek.greskowiak@uol.de)
 
+Cite as: Stephan L. Seibert, & Janek Greskowiak. (2023). PHT3D-FSP: PHT3D FloPy Supporting Package (v0.12). Zenodo. https://doi.org/10.5281/zenodo.7559751
+
 This package is supporting the implementation of PHT3D (Prommer and Post, 2010) in FloPy (Bakker et al., 2016). PHT3D couples MT3DMS (Zheng and Wang, 1999) to the hydrogeochemical reaction code PHREEQC-2 (Parkhurst and Appelo, 1999). Visit www.pht3d.org for further information.
 
 1.) Aim of PHT3D-FSP
