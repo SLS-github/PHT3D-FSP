@@ -101,7 +101,7 @@ This is a preliminary file version. Contact the authors in case you experience e
 
 Literature:
 
-Bakker, Mark, Post, Vincent, Langevin, C. D., Hughes, J. D., White, J. T., Starn, J. J. and Fienen, M. N., 2016, Scripting MODFLOW Model Development Using Python and FloPy: Groundwater, v. 54, p. 733–739, doi:10.1111/gwat.12413.
+Bakker, Mark, Post, Vincent, Langevin, C. D., Hughes, J. D., White, J. T., Starn, J. J. and Fienen, M. N., 2016, Scripting MODFLOW Model Development Using Python and FloPy: Groundwater, v. 54, p. 733–739, doi:10.1111/gwat.12413
 
 Parkhurst, D. L., & Appelo, C. a. J. (1999). User’s guide to PHREEQC (Version 2): A computer program for speciation, batch-reaction, one-dimensional transport, and inverse geochemical calculations. In Water-Resources Investigations Report (No. 99–4259). U.S. Geological Survey. https://doi.org/10.3133/wri994259
 
