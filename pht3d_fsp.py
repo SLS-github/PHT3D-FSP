@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-This is the Python tool "PHT3D-FSP" (PHT3D - FloPy Support Package) v0.12, see readme file for further information.
+This is the Python tool "PHT3D-FSP" (PHT3D - FloPy Support Package) v0.15, see readme file for further information. Released on 25/06/2024.
 
 This work was realized in the Deutsche Forschungsgemeinschaft (DFG) project Reactive Transport (GR 4514/3-1) within the research unit FOR 5094: The dynamic deep subsurface of high-energy beaches (DynaDeep).
 
@@ -10,7 +10,7 @@ This work is published under the GNU GENERAL PUBLIC LICENSE Version 3.
 @author: Stephan L. Seibert (stephan.seibert@uol.de) and Janek Greskowiak (janek.greskowiak@uol.de)
 """
 
-def create(xlsx_path="./",xlsx_name="pht3d_species.xlsx",nlay=1,nrow=1,ncol=1,ph_os=2,ph_temp=25.0,
+def create(xlsx_path="./",xlsx_name="pht3d_species.xlsx",nlay=1,nrow=1,ncol=1,ph_os=2,ph_temp=25.0,pht3d_path='./',
               ph_asbin=0, ph_eps_aqu=1e-10, ph_ph=1e-3,ph_print=0,ph_cb_offset=0,ph_surf_calc_type="-diffuse_layer",write_ph="yes"):
 
     #%%
@@ -49,12 +49,15 @@ def create(xlsx_path="./",xlsx_name="pht3d_species.xlsx",nlay=1,nrow=1,ncol=1,ph
     create.crch_ssm = []
     for i in np.arange(0,len(species)):
         if i == 0:
-            word1 = "crch = " + "rch_spec['" + species.name[i] + "'], " # changed by JG 7.1.23
+            word1 = "crch = " + "crch_data, " # changed by SS 27/11/23
         else:
-            word1 = "crch"+"{:0>1d}".format(i+1) + " = rch_spec['" + species.name[i] + "'], " # changed by JG 7.1.23
+            word1 = "crch"+"{:0>1d}".format(i+1) + " = crch"+"{:0>1d}".format(i+1) + "_data, " # changed by SS 27/11/23
         create.crch_ssm.append(word1)
     create.crch_ssm = ''.join(create.crch_ssm)
     create.crch_ssm = create.crch_ssm[:-2]
+    
+    # Calculate number of species
+    create.species_no = len(species)
     
     # Calculate amount of the different reactant types
     mobile_comp = np.nansum(species.mobility == 'mobile')
@@ -212,7 +215,7 @@ def create(xlsx_path="./",xlsx_name="pht3d_species.xlsx",nlay=1,nrow=1,ncol=1,ph
     
     ### Write 'pht3d_ph.dat'
     if write_ph == "yes":
-        with open("./pht3d_ph.dat",'w') as pht3d_ph:
+        with open(pht3d_path+"pht3d_ph.dat",'w') as pht3d_ph:
             # PH1 Record:
             pht3d_ph.write(str(l01_01_OS)+' '+str(l01_02_TEMP)+' '+str(l01_03_ASBIN)+' '+str(l01_04_EPS_AQU)+' '+str(l01_05_EPS_PH)+' '+str(l01_06_PRINT)+'\n')
             # PH2 Record:
@@ -280,11 +283,14 @@ def create(xlsx_path="./",xlsx_name="pht3d_species.xlsx",nlay=1,nrow=1,ncol=1,ph
                     argument_value = []
                     argument_value = str(ion_exchange_species_master_species[i])
                     argument_value = argument_value.lower()
-                    if ion_exchange_species_type[i] == 'E':
+                    argument_value2 = []
+                    argument_value2 = str(ion_exchange_species_stoichiometry[i])
+                    argument_value2 = argument_value2.lower()
+                    if argument_value == 'nan' and argument_value2 == 'nan':
                         pht3d_ph.write(str(ion_exchange_species_names[i])+'\n')
-                    elif argument_value != 'nan':
+                    elif argument_value != 'nan' and argument_value2 != 'nan':
                         pht3d_ph.write(str(ion_exchange_species_names[i])+' '+str(int(ion_exchange_species_stoichiometry[i]))+' '+str(ion_exchange_species_master_species[i])+'\n')
-                    else:
+                    elif argument_value == 'nan' and argument_value2 != 'nan':
                         pht3d_ph.write(str(ion_exchange_species_names[i])+' '+str(int(ion_exchange_species_stoichiometry[i]))+'\n')
             # PH13 Record:
             if surface_species > 0:
