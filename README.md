@@ -90,6 +90,7 @@ To invoke the "ncomp", "mcomp", "sconc_btn", "crch_ssm" and "ssm_data" variables
 5b.) Further functions
 
 The following additional functions are available:
+
 	"pht3d_fsp.create.species_no" -> yields the total number of species defined in the .xlsx file
 
 6.) Example
