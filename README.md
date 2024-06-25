@@ -2,7 +2,7 @@
 
 Authors: Stephan L. Seibert (stephan.seibert@uol.de) and Janek Greskowiak (janek.greskowiak@uol.de)
 
-Cite as: Stephan L. Seibert, & Janek Greskowiak. (2023). PHT3D-FSP: PHT3D FloPy Supporting Package (v0.12). Zenodo. https://doi.org/10.5281/zenodo.7559751
+Cite as: Stephan L. Seibert, & Janek Greskowiak. (2024). PHT3D-FSP: PHT3D FloPy Supporting Package (v0.15). Zenodo. https://doi.org/10.5281/zenodo.7559751
 
 This package is supporting the implementation of PHT3D (Prommer and Post, 2010) in FloPy (Bakker et al., 2016). PHT3D couples MT3DMS (Zheng and Wang, 1999) to the hydrogeochemical reaction code PHREEQC-2 (Parkhurst and Appelo, 1999). Visit www.pht3d.org for further information.
 
@@ -13,12 +13,13 @@ Firstly, to provide an easy way of creating "phtd3d_ph.dat" using a .xlsx spread
 2.) General instructions
 
 Firstly, paste the file "pht3d_fsp.py" into your environment site-package folder, e.g., /home/user/anaconda3/envs/flopy/lib/python3.9/site-packages/
+Alternatively, it might also be possible to simply store "pht3d_fsp.py" in the folder of the FloPy script.
 
 Important note: the "pht3d_fsp.create()" function requires that the packages "numpy" and "pandas" are installed in the environment.
 
 Secondly, within a flopy .py script, after having run a MODFLOW/SEAWAT simulation and, thereby, having produced "mt3d_link.ftl", the following line needs to be called:
 	
-	spec = pht3d_fsp.create(xlsx_path="./",xlsx_name="pht3d_species.xlsx",nlay=1,nrow=1,ncol=1,ph_os=2,ph_temp=25.0,
+	spec = pht3d_fsp.create(xlsx_path="./",xlsx_name="pht3d_species.xlsx",nlay=1,nrow=1,ncol=1,ph_os=2,ph_temp=25.0,pht3d_path='./',
               ph_asbin=0, ph_eps_aqu=1e-10, ph_ph=1e-3,ph_print=0,ph_cb_offset=0,ph_surf_calc_type="-diffuse_layer",write_ph="yes")
 
 The pht3d_fsp.create function variables are as follows:
@@ -28,7 +29,8 @@ The pht3d_fsp.create function variables are as follows:
 	nlay, nrow, ncol -> number of the model layer, row and column (default = "1")
 	ph_os -> PHT3D flag for the operator-splitting scheme (default = "2")
 	ph_temp -> PHT3D temperature used for chemical reactions with temperature dependence. A negative value refers to the absolute species number that represents temperature (default: "25.0")
-	ph_asbin -> PHT3D flag that determines if binary and ASCII outputs are generated (default = "0")
+	pht3d_path -> define the destination path for "pht3d_ph.dat" (default: "./")
+ 	ph_asbin -> PHT3D flag that determines if binary and ASCII outputs are generated (default = "0")
 	ph_eps_aqu -> PHT3D activation/deactivation criterion for species concentrations (default = "1e-10")
 	ph_ph -> PHT3D activation/deactivation criterion for pH (default = "1e-3")
 	ph_print -> PHT3D flag to print additional PHREEQC-2 output (default = "0")
@@ -77,13 +79,18 @@ Important note: it is mandatory to keep the correct order of the species, i.e., 
 
 - depending on the type of boundary condition, further stress period data needs to be defined for the SSM package, which is called by the flopy SSM package via the variable "stress_period_data" (see 5.) This is, for example, the case if the WEL or CHD packages shall be used by PHT3D.
 
-5.) Call of BTN and SSM packages
+5a.) Call of BTN and SSM packages
 
 To invoke the "ncomp", "mcomp", "sconc_btn", "crch_ssm" and "ssm_data" variables, the flopy BTN and SSM packages need to be called as follows:
 
 	BTN --> exec(f'btn = flopy.mt3d.Mt3dBtn([ADD OTHER PACKAGE VARIABLES HERE], ncomp={pht3d_fsp.create.ncomp}, mcomp={pht3d_fsp.create.mcomp}, {pht3d_fsp.create.sconc_btn})')
 
 	SSM --> exec(f'ssm = flopy.mt3d.Mt3dSsm([ADD OTHER PACKAGE VARIABLES HERE], stress_period_data=ssm_data, {pht3d_fsp.create.crch_ssm})')
+
+5b.) Further functions
+
+The following additional functions are available:
+	"pht3d_fsp.create.species_no" -> yields the total number of species defined in the .xlsx file
 
 6.) Example
 
