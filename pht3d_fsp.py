@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-This is the Python tool "PHT3D-FSP" (PHT3D - FloPy Support Package) v0.15, see readme file for further information. Released on 25/06/2024.
+This is the Python tool "PHT3D-FSP" (PHT3D - FloPy Support Package) v0.16, see readme file for further information. Released on 25/07/2024.
 
 This work was realized in the Deutsche Forschungsgemeinschaft (DFG) project Reactive Transport (GR 4514/3-1) within the research unit FOR 5094: The dynamic deep subsurface of high-energy beaches (DynaDeep).
 
@@ -313,8 +313,6 @@ def create(xlsx_path="./",xlsx_name="pht3d_species.xlsx",nlay=1,nrow=1,ncol=1,ph
                             pht3d_ph.write(str(kinetic_minerals_parameters[i][j])+'\n')  
                     argument_value = str(kinetic_minerals_formula[i])    
                     argument_value = argument_value.lower()  
-                    if argument_value == 'nan':        
-                       pht3d_ph.write('-Formula \n')  
-                    else:
+                    if argument_value != 'nan':
                        pht3d_ph.write('-Formula '+str(kinetic_minerals_formula[i])+'\n') 
     return spec_array_dict
